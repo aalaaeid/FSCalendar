@@ -107,12 +107,23 @@
         CGFloat subtitleHeight = self.subtitleLabel.font.lineHeight;
         
         CGFloat height = titleHeight + subtitleHeight;
+        if (![ _titleLabel.text isEqualToString:@"1"]) {
         _titleLabel.frame = CGRectMake(
                                        self.preferredTitleOffset.x,
                                        (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y,
                                        self.contentView.fs_width,
                                        titleHeight
                                        );
+      
+        } else {
+        _titleLabel.frame = CGRectMake(
+                                           self.preferredTitleOffset.x,
+                                           (self.contentView.fs_height*5.0/6.0-height)*0.5+self.preferredTitleOffset.y - 5,
+                                           self.contentView.fs_width,
+                                           titleHeight
+                                           );
+        }
+        
         _subtitleLabel.frame = CGRectMake(
                                           self.preferredSubtitleOffset.x,
                                           (_titleLabel.fs_bottom-self.preferredTitleOffset.y) - (_titleLabel.fs_height-_titleLabel.font.pointSize)+self.preferredSubtitleOffset.y,
@@ -140,6 +151,12 @@
     
     CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
                                                 cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+    
+    [_shapeLayer setShadowColor:[UIColor blackColor].CGColor];
+    [_shapeLayer setShadowOpacity:0.15];
+    [_shapeLayer setShadowRadius:5.0];
+    [_shapeLayer setShadowOffset:CGSizeMake(0, 0)];
+    
     if (!CGPathEqualToPath(_shapeLayer.path,path)) {
         _shapeLayer.path = path;
     }
